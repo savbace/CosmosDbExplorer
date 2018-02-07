@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Media;
 using DocumentDbExplorer.Infrastructure;
 using DocumentDbExplorer.Infrastructure.Models;
 using DocumentDbExplorer.Messages;
@@ -29,6 +30,7 @@ namespace DocumentDbExplorer.ViewModel
         public string AccountSecret { get; set; }
         public string Label { get; set; }
         public ConnectionType ConnectionType { get; set; }
+        public Color? AccentColor { get; set; }
 
         public bool UseLocalEmulator
         {
@@ -66,7 +68,7 @@ namespace DocumentDbExplorer.ViewModel
                     ?? (_addAccountCommand = new RelayCommand(
                         async x =>
                         {
-                            var connection = new Connection(Label, new Uri(AccountEndpoint), AccountSecret, ConnectionType);
+                            var connection = new Connection(Label, new Uri(AccountEndpoint), AccountSecret, ConnectionType, AccentColor);
                             await _settingsService.SaveConnectionAsync(connection);
                             MessengerInstance.Send(new ConnectionSettingSavedMessage(connection));
                             Close();

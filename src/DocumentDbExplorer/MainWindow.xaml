@@ -74,17 +74,43 @@
         <selector:DocumentHeaderTemplateSelector x:Key="documentHeaderTemplateSelector">
             <selector:DocumentHeaderTemplateSelector.ImageTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding IconSource}" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                    </StackPanel>
+                    <DockPanel LastChildFill="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Margin="0,0,5,0">
+                                <Image Source="{Binding IconSource}" VerticalAlignment="Center" />
+                                <Rectangle Width="16" Height="16" Opacity="0.5"
+                                       Fill="{Binding Content.AccentColor, Converter={StaticResource colorToBurshConverter}}">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush ImageSource="{Binding Content.IconSource}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Grid>
+                            <!--<Canvas Height="10" Width="10" Visibility="{Binding Content.AccentColor, Converter={StaticResource nullToVisibilityConverter}}">
+                                <Ellipse Fill="{Binding Content.AccentColor, Converter={StaticResource colorToBurshConverter}}" Width="10" Height="10"/>
+                            </Canvas>-->
+                            <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DockPanel>
                 </DataTemplate>
             </selector:DocumentHeaderTemplateSelector.ImageTemplate>
 
             <selector:DocumentHeaderTemplateSelector.TextIconTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <ContentControl Content="{Binding Content.IconSource}" Margin="0,0,5,0" VerticalAlignment="Center" />
+                        
+                        
+                        <!--<Canvas Height="10" Width="10" Visibility="{Binding Content.AccentColor, Converter={StaticResource nullToVisibilityConverter}}">
+                            <Ellipse Fill="{Binding Content.AccentColor, Converter={StaticResource colorToBurshConverter}}" Width="10" Height="10"/>
+                        </Canvas>-->
+                        <Grid  Margin="0,0,5,0">
+                            <ContentControl Content="{Binding Content.IconSource}" VerticalAlignment="Center"/>
+                            <Rectangle Width="16" Height="16" Opacity="0.5"
+                                       Fill="{Binding Content.AccentColor, Converter={StaticResource colorToBurshConverter}}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="{Binding Content.IconSource}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Grid>
                         <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
